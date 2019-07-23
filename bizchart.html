@@ -1,0 +1,51 @@
+
+<head>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bizcharts@3.5.4/umd/BizCharts.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="mountNode"></div>
+      <!-- <div id="mountNode"><div><div><div></div><div></div><div></div><div style="position:relative;"><canvas id="canvas_1" width="1242" height="1100" style="width: 621px; height: 550px;"></canvas><div class="g2-tooltip" style="position: absolute; visibility: hidden; white-space: nowrap; z-index: 8; transition: visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s, left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.65); border-radius: 4px; color: rgb(255, 255, 255); font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, SimSun, sans-serif; line-height: 20px; padding: 10px 10px 6px;"><div class="g2-tooltip-title"></div><ul class="g2-tooltip-list"></ul></div></div></div></div></div> -->
+      <script type="text/babel">
+
+        class Greeting extends React.Component {
+    render() {
+        return (<p>Hello world</p>);
+    }
+}
+
+        const { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, View, Guide, Shape } = window.BizCharts;
+
+        const data = [
+          { genre: 'Sports', sold: 275, income: 2300 },
+          { genre: 'Strategy', sold: 115, income: 667 },
+          { genre: 'Action', sold: 120, income: 982 },
+          { genre: 'Shooter', sold: 350, income: 5271 },
+          { genre: 'Other', sold: 150, income: 3710 }
+        ];
+
+        // 定义度量
+        const cols = {
+          sold: { alias: 'sold' },
+          genre: { alias: 'genre' }
+        };
+
+        // 渲染图表
+        ReactDOM.render((
+        // <Greeting />
+          <Chart width={600} height={400} data={data} scale={cols}>
+              <Axis name="genre" title/>
+              <Axis name="sold" title/>
+              <Legend position="top" dy={-20} />
+              <Tooltip />
+              <Geom type="interval" position="genre*sold" color="genre" />
+            </Chart>
+        )
+        , document.getElementById('mountNode'));
+    </script>
+
+</body>
+</html>
