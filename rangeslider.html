@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.css"
+        rel="stylesheet">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+</head>
+<style>
+    #ex1Slider .slider-selection {
+        background: #327da8;
+    }
+
+    #ex1Slider.-webkit-slider-thumb {
+        background: gray;
+    }
+
+    .custom-range::-moz-range-thumb {
+        background: gray;
+    }
+
+    .custom-range::-ms-thumb {
+        background: gray;
+    }
+</style>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <div>
+        <center>
+
+            <label><b>0 </b></label><input id="ex8" class="custom-range" data-slider-id='ex1Slider' type="text"
+                data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14" /><label><b>
+                    20</b></label>
+            <button id="slidersubmit" class='btn btn-primary'>Select</button>
+        </center>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                var slider = new Slider('#ex8', {
+                    tooltip: 'always'
+                });
+
+                $("#slidersubmit").click(function () {
+                    let sliderValue = slider.getValue()
+                    console.log(sliderValue);
+                    window.parent.postMessage(JSON.stringify({
+                        event_code: 'ym-client-event', data: JSON.stringify({
+                            event: {
+                                code: "SliderValue",
+                                data: {
+                                    sliderValue: sliderValue
+                                }
+                            }
+                        })
+                    }), '*');
+                    $("#slidersubmit").attr('disabled', 'disabled');
+                    $("#slidersubmit").html('Selected');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
